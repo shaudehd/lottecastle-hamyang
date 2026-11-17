@@ -278,36 +278,40 @@ function calc(){
 }
 function bandLabel(b){return b<0?"":BANDS[b]}
 function fillType(){
- var h="";T.forEach(function(t){h+='<option value="'+t.n+'">'+t.n+" 타입 ("+t.py+"평 · "+t.cnt+"세대)</option>"});
+ var h='<option value="">전체 타입 (동·호로 찾기)</option>';
+ T.forEach(function(t){h+='<option value="'+t.n+'">'+t.n+" 타입 ("+t.py+"평 · "+t.cnt+"세대)</option>"});
  document.getElementById("selType").innerHTML=h;
 }
 function fillDong(){
- var t=T_(),set={},h='<option value="">동 선택</option>';
- t.g.forEach(function(gr){Object.keys(gr.dongs).forEach(function(dg){set[dg]=1})});
+ var set={},h='<option value="">동 선택</option>';
+ T.forEach(function(t){t.g.forEach(function(gr){Object.keys(gr.dongs).forEach(function(dg){set[dg]=1})})});
  Object.keys(set).sort().forEach(function(dg){h+='<option value="'+dg+'">'+dg+"동</option>"});
  document.getElementById("selDong").innerHTML=h;
  document.getElementById("selHo").disabled=true;
  document.getElementById("selHo").innerHTML='<option value="">동을 먼저 선택하세요</option>';
  dong="";ho="";
- document.getElementById("typeInfo").textContent="공급 "+t.py+"평(공급면적 "+t.sup+"㎡) · 전용 "+t.ded+"㎡ · 라인: "+t.g.map(function(x){return x.dl}).join(" / ");
+ document.getElementById("typeInfo").textContent="단지 전체 101동~117동 · 동을 고르면 그 동의 전 호실(타입·층 포함)이 나옵니다";
 }
 function fillHo(){
- var t=T_(),h='<option value="">선택 안 함(5~9층 대표가)</option>',rows=[];
- t.g.forEach(function(gr){
-  if(!gr.dongs[dong])return;
-  gr.dongs[dong].forEach(function(hoN){
-   BANDS.forEach(function(bd,bi){if(gr.p[bi]!=null)rows.push({ho:hoN,bi:bi,l:hoN+"호("+bd+")"})});
+ var tf=document.getElementById("selType").value,rows=[],h='<option value="">호실 선택</option>';
+ T.forEach(function(t){
+  if(tf&&t.n!==tf)return;
+  t.g.forEach(function(gr){
+   if(!gr.dongs[dong])return;
+   gr.dongs[dong].forEach(function(hoN){
+    BANDS.forEach(function(bd,bi){if(gr.p[bi]!=null)rows.push({t:t.n,ho:hoN,bi:bi,l:(tf?"":t.n+" · ")+hoN+"호("+bd+")"})});
+   });
   });
  });
- rows.sort(function(a,b){return a.ho-b.ho||a.bi-b.bi});
- rows.forEach(function(r){h+='<option value="'+r.ho+"|"+r.bi+'">'+r.l+"</option>"});
+ rows.sort(function(a,b){return a.ho-b.ho||a.bi-b.bi||(a.t<b.t?-1:1)});
+ rows.forEach(function(r){h+='<option value="'+r.t+"|"+r.ho+"|"+r.bi+'">'+r.l+"</option>"});
  var sh=document.getElementById("selHo");sh.disabled=false;sh.innerHTML=h;
  ho="";
 }
 function render(){
- if(!type)return;
+ if(!type){type=T[0].n;document.getElementById("selType").value="";var preview=true}
  var t=T_(),c=calc(),cust=document.getElementById("cust")?document.getElementById("cust").value.trim():"";
- var cond=t.n+" 타입("+t.py+"평)"+(dong?(ho?" · "+dong+"동 "+ho+"호":" · "+dong+"동"):" · "+c.g.dl.split("·")[0].trim()+" 라인 기준")+" · "+(ho?BANDS[c.b]:"5~9층 기준");
+ var cond=(preview?"【예시】":"")+(dong?(dong+"동 "+(ho?ho+"호":"호 미선택")+" · "+(ho?t.n+" · ":"")):t.n+" 타입("+t.py+"평) · 동을 선택하세요")+" · "+(ho?BANDS[c.b]:"5~9층 기준");
  document.getElementById("qCond").textContent=cond;
  document.getElementById("qPrice").innerHTML=won(c.p).replace(/원/,"<small>원</small>");
  document.getElementById("qCont").innerHTML=won(c.cg)+"<em>계약 시 1차 "+won(c.c1)+" + 30일 이내 2차 "+won(c.c2)+"</em>";
@@ -361,9 +365,9 @@ function sendMail(){var sub="【화성 향남 롯데캐슬 시그니처】 상�
 document.getElementById("cust");
 /* 입력 마크업 추가 — 고객명 */
 (function(){var s=document.querySelector(".sect .selrow");var d=document.createElement("div");d.className="sect";d.innerHTML='<div class="sect-t"><span class="no">00</span><span class="tt">고객명</span><small>(선택 — 견적서에 표시됩니다)</small></div><input type="text" id="cust" placeholder="예: 홍길동" style="margin-top:2px">';document.querySelector("main").insertBefore(d,document.querySelector("main .sect"))})();
-document.getElementById("selType").addEventListener("change",function(){type=this.value;fillDong();render()});
+document.getElementById("selType").addEventListener("change",function(){type=this.value||null;preview=false;if(dong)fillHo();render()});
 document.getElementById("selDong").addEventListener("change",function(){dong=this.value;fillHo();render()});
-document.getElementById("selHo").addEventListener("change",function(){var v=this.value;if(v){var p=v.split("|");ho=p[0];band=+p[1]}else{ho="";band=4}render()});
+document.getElementById("selHo").addEventListener("change",function(){var v=this.value;if(v){var p=v.split("|");type=p[0];ho=p[1];band=+p[2];document.getElementById("selType").value=type;preview=false}else{ho="";band=4}render()});
 document.getElementById("balc").addEventListener("click",function(){balcOn=!balcOn;this.classList.toggle("sel",balcOn);document.getElementById("balcBox").textContent=balcOn?"✓":"";render()});
 document.getElementById("loanBar").addEventListener("input",function(){loan=(+this.value)/100;render()});
 document.getElementById("rateBar").addEventListener("input",function(){rate=+this.value;render()});
@@ -381,8 +385,6 @@ document.getElementById("sKakao").addEventListener("click",sendKakao);
 document.getElementById("sSms").addEventListener("click",sendSMS);
 document.getElementById("sMail").addEventListener("click",sendMail);
 fillType();
-type=T[0].n;
-document.getElementById("selType").value=type;
 fillDong();
 render();
 if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
