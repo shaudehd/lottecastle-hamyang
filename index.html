@@ -216,11 +216,11 @@ input[type=range]{flex:1;accent-color:var(--gold);height:40px}
         <button type="button" id="sSms">문자</button>
         <button type="button" id="sMail">이메일</button>
       </div>
-      <div class="foot">※ 본 견적은 분양 교육자료(2026. 11. 기준)에 따르며, 실제 계약 조건·대출 조건은 모집공고 및 금융기관 승인에 따라 달라질 수 있습니다.<br>상담 문의: 총괄 본부장 김태은 010-4375-0527</div>
+      <div class="foot">※ 본 견적은 분양 교육자료(2026. 11. 기준)에 따르며, 실제 계약 조건·대출 조건은 모집공고 및 금융기관 승인에 따라 달라질 수 있습니다.</div>
     </div>
   </div>
 
-  <div class="foot">화성 향남 롯데캐슬 시그니처 분양 상담<div class="fbar"></div>총괄 본부장 김태은 · 010-4375-0527<br><br>※ 상기 견적은 교육자료 기준이며 실제 계약 조건은 모집공고에 따릅니다.</div>
+  <div class="foot">화성 향남 롯데캐슬 시그니처 분양 상담<div class="fbar"></div>※ 상기 견적은 교육자료 기준이며 실제 계약 조건은 모집공고에 따릅니다.</div>
 </main>
 <div id="toast" role="status"></div>
 
@@ -267,7 +267,11 @@ function manwon(n){var e=Math.round(n),m=Math.floor(e/10000),r=e%10000;return m>
 function T_(){return T.filter(function(t){return t.n===type})[0]}
 function groupOf(){var t=T_();for(var i=0;i<t.g.length;i++)if(t.g[i].dongs[dong]&&t.g[i].dongs[dong].indexOf(ho)>-1)return t.g[i];return null}
 function calc(){
- var t=T_(),g=groupOf(),b=Math.max(0,Math.min(5,band)),p=g.p[b]*10000;
+ var t=T_(),b=Math.max(0,Math.min(5,band)),g;
+ if(dong){g=groupOf()}
+ if(!g){for(var i=0;i<t.g.length;i++){if(t.g[i].p[b]!=null){g=t.g[i];break}}}
+ if(!g)g=t.g[0];
+ var p=g.p[b]!=null?g.p[b]*10000:t.g[0].p[4]*10000;
  var cg=p*0.05,c1=10000000,c2=cg-c1,mid=p*0.60,bal=p*0.35;
  var la=loan?p*loan:0,mi=rate?la*rate/100/12:0;
  return {p:p,cg:cg,c1:c1,c2:c2,mid:mid,bal:bal,la:la,mi:mi,g:g,b:b};
@@ -303,7 +307,7 @@ function fillHo(){
 function render(){
  if(!type)return;
  var t=T_(),c=calc(),cust=document.getElementById("cust")?document.getElementById("cust").value.trim():"";
- var cond=t.n+" 타입("+t.py+"평)"+(dong?(ho?" · "+dong+"동 "+ho+"호":" · "+dong+"동"):"")+" · "+(ho?BANDS[c.b]:(dong?"5~9층 대표가":"5~9층 기준"));
+ var cond=t.n+" 타입("+t.py+"평)"+(dong?(ho?" · "+dong+"동 "+ho+"호":" · "+dong+"동"):" · "+c.g.dl.split("·")[0].trim()+" 라인 기준")+" · "+(ho?BANDS[c.b]:"5~9층 기준");
  document.getElementById("qCond").textContent=cond;
  document.getElementById("qPrice").innerHTML=won(c.p).replace(/원/,"<small>원</small>");
  document.getElementById("qCont").innerHTML=won(c.cg)+"<em>계약 시 1차 "+won(c.c1)+" + 30일 이내 2차 "+won(c.c2)+"</em>";
