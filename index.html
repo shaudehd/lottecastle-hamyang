@@ -348,10 +348,6 @@ document.getElementById("selHo").addEventListener("change",function(){var v=this
 document.getElementById("balc").addEventListener("click",function(){balcOn=!balcOn;this.classList.toggle("sel",balcOn);document.getElementById("balcBox").textContent=balcOn?"✓":"";render()});
 (function(){
  function hold(btn,fn){var t,i;btn.addEventListener("click",fn);btn.addEventListener("touchstart",function(){t=setTimeout(function(){i=setInterval(fn,120)},400)},{passive:true});["touchend","touchcancel"].forEach(function(ev){btn.addEventListener(ev,function(){clearTimeout(t);clearInterval(i)},{passive:true})})}
- hold(document.getElementById("loanDn"),function(){var b=document.getElementById("loanBar");b.value=Math.max(10,+b.value-10);loan=(+b.value)/100;render()});
- hold(document.getElementById("loanUp"),function(){var b=document.getElementById("loanBar");b.value=Math.min(70,+b.value+10);loan=(+b.value)/100;render()});
- hold(document.getElementById("rateDn"),function(){var b=document.getElementById("rateBar");b.value=Math.max(1,Math.round((+b.value-0.1)*10)/10);rate=+b.value;render()});
- hold(document.getElementById("rateUp"),function(){var b=document.getElementById("rateBar");b.value=Math.min(6,Math.round((+b.value+0.1)*10)/10);rate=+b.value;render()});
 })();
 document.getElementById("sKakao").addEventListener("click",sendKakao);
 document.getElementById("sSms").addEventListener("click",sendSMS);
