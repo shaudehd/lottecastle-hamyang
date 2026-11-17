@@ -336,7 +336,8 @@ function copyText(m,cb){
  else{fb(m,cb)}
 }
 function fb(m,cb){var ta=document.createElement("textarea");ta.value=m;document.body.appendChild(ta);ta.select();try{document.execCommand("copy")}catch(e){}document.body.removeChild(ta);if(cb)cb()}
-function sendKakao(){var m=sheetMsg();if(navigator.share){navigator.share({text:m}).catch(function(){})}else{copyText(m,function(){toast("견적을 복사했어요 — 카톡에 붙여넣으세요");location.href="kakaotalk://"})}}
+function openKakao(){var a=document.createElement("a");a.href="kakaotalk://launch";a.style.display="none";document.body.appendChild(a);a.click();setTimeout(function(){document.body.removeChild(a)},800)}
+function sendKakao(){var m=sheetMsg();if(navigator.share){navigator.share({text:m}).catch(function(){copyText(m,function(){toast("카톡에 붙여넣으세요 — 복사했어요")});openKakao()})}else{copyText(m,function(){toast("카톡에 붙여넣으세요 — 복사했어요")});openKakao()}}
 function sendSMS(){location.href="sms:?body="+encodeURIComponent(sheetMsg())}
 function sendMail(){var sub="【화성 향남 롯데캐슬 시그니처】 상세 견적서 — "+(document.getElementById("cust").value.trim()||"고객님");location.href="mailto:?subject="+encodeURIComponent(sub)+"&body="+encodeURIComponent(sheetMsg())}
 document.getElementById("cust");
