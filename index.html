@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>화성 향남 롯데캐슬 시그니처 — 분양 견적</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#12141d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#12141d; --ink2:#1b1e2b; --ink3:#242838;
+  --gold:#c8a45c; --gold2:#e6cf9a; --golddim:#8a744a;
+  --paper:#f7f4ec; --paper2:#efe9da; --line:#e2dac6;
+  --txt:#e8e4d8; --mut:#9a96a8; --good:#7fb08a;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--txt);font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;line-height:1.5;padding-bottom:40px}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px}
+.serif{font-family:"Noto Serif KR",serif}
+/* ---------- hero ---------- */
+.hero{position:relative;padding:56px 16px 34px;background:
+ radial-gradient(120% 90% at 85% -10%, rgba(200,164,92,.22), transparent 55%),
+ radial-gradient(80% 60% at 0% 100%, rgba(200,164,92,.10), transparent 60%),
+ linear-gradient(180deg,#101219 0%,#14161f 100%);
+ border-bottom:1px solid rgba(200,164,92,.35);overflow:hidden}
+.hero .brand{font-size:11px;letter-spacing:.42em;color:var(--golddim);text-transform:uppercase}
+.hero h1{font-family:"Noto Serif KR",serif;font-weight:900;font-size:34px;line-height:1.2;margin:10px 0 2px;color:#f3ecd9}
+.hero h1 .sig{background:linear-gradient(100deg,#e6cf9a 10%,#c8a45c 45%,#f0e0b4 75%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{color:var(--mut);font-size:13px;margin-top:6px}
+.hero .stroke{width:64px;height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin:16px 0 14px}
+.stats{display:flex;flex-wrap:wrap;gap:6px 8px}
+.stats span{font-size:11px;color:#cfc7ae;border:1px solid rgba(200,164,92,.35);border-radius:999px;padding:3px 10px;background:rgba(200,164,92,.07)}
+.hero .note{margin-top:14px;font-size:11px;color:#6f6b7c}
+/* ---------- summary card (paper) ---------- */
+.paper{background:var(--paper);color:#22201a;border-radius:14px;box-shadow:0 18px 40px rgba(0,0,0,.55),0 2px 0 rgba(255,255,255,.06) inset;border:1px solid rgba(200,164,92,.4);margin-top:-18px;position:relative;overflow:hidden}
+.paper .phead{padding:14px 18px 10px;border-bottom:1px solid var(--line)}
+.paper .phead .pt{display:flex;justify-content:space-between;align-items:baseline}
+.paper .phead .pt b{font-family:"Noto Serif KR",serif;font-size:15px;color:#3a3222}
+.paper .phead .pt span{font-size:10px;letter-spacing:.2em;color:var(--golddim)}
+.paper .phead .cond{font-size:12.5px;color:#5a5342;margin-top:6px;min-height:19px}
+.price-row{display:flex;align-items:baseline;gap:8px;padding:14px 18px 4px}
+.price-row .amt{font-family:"Noto Serif KR",serif;font-weight:900;font-size:34px;color:#1c1a12;letter-spacing:-.5px}
+.price-row .amt small{font-size:16px;font-weight:700}
+.price-row .tag{font-size:10.5px;color:#8a7a52;border:1px solid var(--golddim);border-radius:999px;padding:2px 8px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:0 12px;padding:8px 18px 12px;font-size:13px}
+.kv .k{color:#8a7a52;white-space:nowrap}
+.kv .v{text-align:right;font-weight:600;color:#2a2517}
+.kv .v em{display:block;font-style:normal;font-weight:400;font-size:11px;color:#8a7a52}
+.kv .div{grid-column:1/-1;border-top:1px dashed var(--line);margin:5px 0}
+.plan{margin:0 12px 12px;border:1px solid var(--line);border-radius:10px;background:#fffdf6;padding:10px 12px;font-size:12px;color:#5a5342}
+.plan b{color:#3a3222}
+.plan .row{display:flex;gap:8px;padding:2px 0}
+/* ---------- sections ---------- */
+.sect{margin-top:22px}
+.sect-t{display:flex;align-items:baseline;gap:10px;margin-bottom:12px;padding-left:2px}
+.sect-t .no{font-family:"Noto Serif KR",serif;color:var(--gold);font-size:13px;letter-spacing:.1em}
+.sect-t .tt{font-size:15px;font-weight:700;color:#efe9d6}
+.sect-t small{color:var(--mut);font-weight:400;font-size:11px;margin-left:2px}
+input[type=text]{width:100%;background:var(--ink2);border:1px solid #333748;border-radius:10px;color:#efe9d6;font-size:15px;padding:13px 14px;outline:none}
+input[type=text]:focus{border-color:var(--gold)}
+.selrow{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.sellab{width:52px;font-size:12.5px;color:var(--mut);flex-shrink:0}
+.selwrap{position:relative;flex:1}
+select{width:100%;appearance:none;-webkit-appearance:none;background:var(--ink2);border:1px solid #333748;border-radius:10px;color:#efe9d6;font-size:15px;padding:13px 38px 13px 14px;outline:none}
+select:focus{border-color:var(--gold)}
+select:disabled{opacity:.4}
+.arr{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--golddim);pointer-events:none;font-size:11px}
+.hint{font-size:11.5px;color:#7c7788;padding:2px 4px 0;line-height:1.6}
+/* ---------- option / loan ---------- */
+.opt{display:flex;align-items:center;gap:10px;background:var(--ink2);border:1px solid #333748;border-radius:10px;padding:14px;font-size:14.5px}
+.opt small{margin-left:auto;color:var(--mut);font-size:12px}
+.opt .box{width:20px;height:20px;border:1.5px solid var(--golddim);border-radius:5px;display:grid;place-items:center;color:var(--ink);font-weight:900;font-size:13px}
+.opt.sel{border-color:var(--gold);background:rgba(200,164,92,.12)}
+.opt.sel .box{background:var(--gold)}
+.steplab{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:var(--mut);margin-bottom:8px}
+.steplab b{color:#efe9d6;font-size:15px}
+.steplab small{color:var(--gold2);font-weight:600}
+.stepper{display:flex;align-items:center;gap:10px}
+.stbtn{width:40px;height:40px;flex-shrink:0;border-radius:10px;border:1px solid #3a3e50;background:var(--ink2);color:var(--gold2);font-size:19px;user-select:none}
+.stbtn:active{background:var(--ink3)}
+input[type=range]{flex:1;accent-color:var(--gold);height:40px}
+/* ---------- share / sheet ---------- */
+.btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:22px}
+.btns button{border:0;border-radius:11px;padding:14px 4px;font-size:13.5px;font-weight:700;color:#1c1a12;background:linear-gradient(180deg,var(--gold2),var(--gold));box-shadow:0 6px 18px rgba(200,164,92,.25)}
+.btns button:active{transform:translateY(1px)}
+.btns button.ghost{background:var(--ink2);color:#cfc7ae;border:1px solid #3a3e50;box-shadow:none}
+.sheet{margin-top:22px}
+.sheet-in{background:var(--paper);color:#22201a;border-radius:14px;border:1px solid rgba(200,164,92,.4);box-shadow:0 18px 40px rgba(0,0,0,.55);padding:16px 16px 14px}
+.sheet-in h3{font-family:"Noto Serif KR",serif;font-size:15px;color:#3a3222;display:flex;justify-content:space-between;align-items:baseline}
+.sheet-in h3 span{font-size:10px;letter-spacing:.2em;color:var(--golddim);font-family:-apple-system,sans-serif}
+.sheet-in table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
+.sheet-in td{padding:7px 2px;border-bottom:1px solid var(--line);vertical-align:top}
+.sheet-in td.l{color:#8a7a52;white-space:nowrap;width:38%}
+.sheet-in td.r{text-align:right;font-weight:600;color:#2a2517}
+.sheet-in .foot{margin-top:10px;font-size:10.5px;color:#8a7a52;line-height:1.6}
+.btns.sheet-btns{margin-top:12px}
+/* ---------- footer / toast ---------- */
+.foot{margin-top:30px;text-align:center;font-size:11.5px;color:#6f6b7c;line-height:1.7}
+.foot .fbar{width:44px;height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin:10px auto}
+#toast{position:fixed;left:50%;bottom:34px;transform:translate(-50%,20px);background:#262a3a;color:#efe9d6;font-size:13px;padding:11px 20px;border-radius:999px;border:1px solid #3a3e50;opacity:0;pointer-events:none;transition:.25s;z-index:9}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="brand">LOTTE CASTLE SIGNATURE</div>
+    <h1>화성 향남 <span class="sig">롯데캐슬 시그니처</span></h1>
+    <div class="stroke"></div>
+    <div class="sub">향남 최초의 메이저 브랜드 · 전용 84~120㎡ 중·대형 평형</div>
+    <div class="stats">
+      <span>총 1,542세대</span><span>17개동</span><span>지하 3~지상 29층</span><span>주차 1.45대/세대</span><span>전 세대 남향 위주</span>
+    </div>
+    <div class="note">위치 — 경기도 화성시 향남읍 상신리 산 13-13 일원 · 중도금 무이지원 · 계약금 분납(1차 1,000만 원)</div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 견적 요약 (종이 견적서) -->
+  <div class="paper">
+    <div class="phead">
+      <div class="pt"><b>분양 견적 요약</b><span>ESTIMATE</span></div>
+      <div class="cond" id="qCond">타입을 선택하면 견적이 만들어집니다</div>
+    </div>
+    <div class="price-row"><span class="amt" id="qPrice">—</span><span class="tag">분양가 (VAT 포함)</span></div>
+    <div class="kv">
+      <span class="k">계약금 5%</span><span class="v" id="qCont">—<em id="qContE">계약 시 1차 1,000만 원 + 30일 이내 2차</em></span>
+      <span class="div"></span>
+      <span class="k">중도금 60%</span><span class="v">무이지원<em>회차별 납입 일정은 모집공고 확정 후 안내</em></span>
+      <span class="div"></span>
+      <span class="k">잔금 35%</span><span class="v" id="qBal">—<em>입주지정기간</em></span>
+    </div>
+    <div class="plan" id="balcSum" style="display:none"></div>
+    <div class="plan" id="loanSum" style="display:none"></div>
+  </div>
+
+  <!-- 1. 타입 -->
+  <div class="sect">
+    <div class="sect-t"><span class="no">01</span><span class="tt">타입 선택</span><small>전용 84㎡ (7종) · 102 · 112 · 120</small></div>
+    <div class="selrow">
+      <label class="sellab">타입</label>
+      <div class="selwrap"><select id="selType"></select><span class="arr">▾</span></div>
+    </div>
+    <div class="hint" id="typeInfo"></div>
+  </div>
+
+  <!-- 2. 동·호 -->
+  <div class="sect">
+    <div class="sect-t"><span class="no">02</span><span class="tt">동 · 호 선택</span><small>동을 고르면 호실이 나옵니다</small></div>
+    <div class="selrow">
+      <label class="sellab">동</label>
+      <div class="selwrap"><select id="selDong"><option value="">동 선택</option></select><span class="arr">▾</span></div>
+    </div>
+    <div class="selrow">
+      <label class="sellab">호실</label>
+      <div class="selwrap"><select id="selHo" disabled><option value="">동을 먼저 선택하세요</option></select><span class="arr">▾</span></div>
+    </div>
+    <div class="hint">호실은 층별로 전부 들어 있어요 — 예) 1호(2층), 1호(5~9층), 1호(10층 이상) · 고른 층 기준으로 견적이 나옵니다 · 선택 안 하면 5~9층 대표가</div>
+  </div>
+
+  <!-- 3. 발코니 -->
+  <div class="sect">
+    <div class="sect-t"><span class="no">03</span><span class="tt">발코니 확장</span></div>
+    <div class="opt" id="balc"><span class="box" id="balcBox"></span>발코니 확장 포함<small id="balcLbl"></small></div>
+  </div>
+
+  <!-- 4. 대출 -->
+  <div class="sect">
+    <div class="sect-t"><span class="no">04</span><span class="tt">대출 조건</span><small>(선택 — 비율·금리를 고르면 이자가 계산됩니다)</small></div>
+    <div class="steplab">대출 비율 <b id="loanVal">50%</b><small id="loanAmt"></small></div>
+    <div class="stepper">
+      <button type="button" class="stbtn" id="loanDn" aria-label="대출 비율 감소">−</button>
+      <input type="range" id="loanBar" min="10" max="70" step="10" value="50" aria-label="대출 비율">
+      <button type="button" class="stbtn" id="loanUp" aria-label="대출 비율 증가">+</button>
+    </div>
+    <div class="steplab" style="margin-top:14px">연 이율 <b id="rateVal">3.5%</b><small id="rateAmt"></small></div>
+    <div class="stepper">
+      <button type="button" class="stbtn" id="rateDn" aria-label="이율 감소">−</button>
+      <input type="range" id="rateBar" min="1" max="6" step="0.1" value="3.5" aria-label="연 이율">
+      <button type="button" class="stbtn" id="rateUp" aria-label="이율 증가">+</button>
+    </div>
+  </div>
+
+  <!-- 공유 -->
+  <div class="btns">
+    <button type="button" id="bCopy">복사</button>
+    <button type="button" class="ghost" id="bSheet">상세 견적서</button>
+    <button type="button" id="bKakao">카톡·문자</button>
+  </div>
+
+  <!-- 상세 견적서 -->
+  <div class="sheet" id="sheet">
+    <div class="sheet-in">
+      <h3>상세 견적서 <span>SIGNATURE</span></h3>
+      <table>
+        <tr><td class="l">고객 / 조건</td><td class="r" id="shMeta">—</td></tr>
+        <tr><td class="l">주택형</td><td class="r" id="shType">—</td></tr>
+        <tr><td class="l">면적 (전용/공급)</td><td class="r" id="shArea">—</td></tr>
+        <tr><td class="l">동·호 / 층</td><td class="r" id="shFloor">—</td></tr>
+        <tr><td class="l">분양가</td><td class="r" id="shPrice">—</td></tr>
+        <tr><td class="l">계약금 1차 (계약 시)</td><td class="r" id="shC1">—</td></tr>
+        <tr><td class="l">계약금 2차 (30일 이내)</td><td class="r" id="shC2">—</td></tr>
+        <tr><td class="l">중도금 60%</td><td class="r">무이지원<em style="display:block;font-weight:400;font-size:10.5px;color:#8a7a52">회차별 일정 — 모집공고 확정 후 안내</em></td></tr>
+        <tr><td class="l">잔금 35%</td><td class="r" id="shBal">—</td></tr>
+        <tr><td class="l">발코니 확장</td><td class="r" id="shBalc">—</td></tr>
+        <tr><td class="l">대출 조건</td><td class="r" id="shLoan">—</td></tr>
+      </table>
+      <div class="btns sheet-btns">
+        <button type="button" id="sKakao">카톡</button>
+        <button type="button" id="sSms">문자</button>
+        <button type="button" id="sMail">이메일</button>
+      </div>
+      <div class="foot">※ 본 견적은 분양 교육자료(2026. 11. 기준)에 따르며, 실제 계약 조건·대출 조건은 모집공고 및 금융기관 승인에 따라 달라질 수 있습니다.<br>상담 문의: 총괄 본부장 김태은 010-4375-0527</div>
+    </div>
+  </div>
+
+  <div class="foot">화성 향남 롯데캐슬 시그니처 분양 상담<div class="fbar"></div>총괄 본부장 김태은 · 010-4375-0527<br><br>※ 상기 견적은 교육자료 기준이며 실제 계약 조건은 모집공고에 따릅니다.</div>
+</main>
+<div id="toast" role="status"></div>
+
+<script>
+/* ── 공급금액 데이터: 향남 롯데캐슬 시그니처 교육자료 공급금액표 (2026.11 기준, 단위 만원) ──
+   밴드: 0=1층 1=2층 2=3층 3=4층 4=5~9층 5=10층 이상 / null=해당 라인에 없음(1층 필로티 등) */
+var BANDS=["1층","2층","3층","4층","5~9층","10층 이상"];
+var T=[
+{n:"84A",cnt:291,ded:84.3522,sup:109.7246,py:33.19,balc:24300000,g:[
+ {dl:"104동 4호 · 109동 1,2호",p:[47200,49300,50900,52000,52500,53000],dongs:{"104":[4],"109":[1,2]}},
+ {dl:"105동 3,4호 · 106동 3호",p:[null,49800,51400,52500,53000,53600],dongs:{"105":[3,4],"106":[3]}},
+ {dl:"107동 1호 · 112동 3호 · 113동 3,4호 · 114동 2호",p:[46700,48800,50400,51500,52000,52500],dongs:{"107":[1],"112":[3],"113":[3,4],"114":[2]}}]},
+{n:"84B",cnt:136,ded:84.4355,sup:110.1662,py:33.33,balc:26500000,g:[
+ {dl:"105동 1호",p:[null,50500,52100,53200,53800,54300],dongs:{"105":[1]}},
+ {dl:"106동 1호",p:[null,50000,51600,52700,53200,53800],dongs:{"106":[1]}},
+ {dl:"114동 1,4호 · 115동 1호",p:[null,49500,51100,52200,52700,53300],dongs:{"114":[1,4],"115":[1]}}]},
+{n:"84C",cnt:412,ded:84.1443,sup:109.6685,py:33.17,balc:24400000,g:[
+ {dl:"104동 2호 · 110동 2호",p:[null,49800,51400,52500,53000,53500],dongs:{"104":[2],"110":[2]}},
+ {dl:"101동 2호 · 103동 1,2호 · 108동 3호 · 110동 4호 · 111동 1,2호",p:[null,49300,50900,52000,52500,53000],dongs:{"101":[2],"103":[1,2],"108":[3],"110":[4],"111":[1,2]}},
+ {dl:"101동 4호 · 102동 1,2호 · 108동 1호 · 111동 4호 · 112동 4호 · 116동 1,2호",p:[46700,48800,50400,51400,52000,52500],dongs:{"101":[4],"102":[1,2],"108":[1],"111":[4],"112":[4],"116":[1,2]}}]},
+{n:"84D",cnt:89,ded:84.4447,sup:110.4100,py:33.40,balc:26700000,g:[
+ {dl:"108동 4호",p:[null,50100,51700,52800,53400,53900],dongs:{"108":[4]}},
+ {dl:"112동 1호 · 117동 1,3호",p:[47500,49600,51200,52300,52800,53400],dongs:{"112":[1],"117":[1,3]}}]},
+{n:"84E",cnt:301,ded:84.5473,sup:111.0317,py:33.59,balc:24500000,g:[
+ {dl:"104동 3호 · 105동 2호 · 106동 2호",p:[null,50400,52000,53100,53700,54200],dongs:{"104":[3],"105":[2],"106":[2]}},
+ {dl:"101동 3호",p:[null,49900,51500,52600,53100,53700],dongs:{"101":[3]}},
+ {dl:"103동 3호 · 107동 2호 · 108동 2호 · 111동 3호 · 112동 2호 · 113동 2호 · 115동 2호 · 117동 2호",p:[47300,49400,51000,52100,52600,53100],dongs:{"103":[3],"107":[2],"108":[2],"111":[3],"112":[2],"113":[2],"115":[2],"117":[2]}}]},
+{n:"84F",cnt:83,ded:84.8194,sup:111.7563,py:33.81,balc:26700000,g:[
+ {dl:"109동 3호 · 110동 3호",p:[null,50700,52400,53500,54000,54600],dongs:{"109":[3],"110":[3]}},
+ {dl:"114동 3호",p:[null,50200,51900,52900,53500,54000],dongs:{"114":[3]}}]},
+{n:"84G",cnt:19,ded:84.3216,sup:111.2509,py:33.65,balc:25500000,g:[
+ {dl:"103동 4호",p:[null,49500,51100,52200,52700,53200],dongs:{"103":[4]}}]},
+{n:"102",cnt:56,ded:102.6403,sup:134.7897,py:40.77,balc:31100000,g:[
+ {dl:"104동 1호 · 110동 1호",p:[null,59500,61400,62700,63400,64000],dongs:{"104":[1],"110":[1]}}]},
+{n:"112",cnt:78,ded:112.1044,sup:144.8816,py:43.83,balc:35000000,g:[
+ {dl:"107동 3호",p:[null,63000,65100,66400,67100,67800],dongs:{"107":[3]}},
+ {dl:"113동 1호 · 115동 3호",p:[59700,62400,64400,65800,66400,67100],dongs:{"113":[1],"115":[3]}}]},
+{n:"120",cnt:77,ded:120.3418,sup:156.6758,py:47.39,balc:37100000,g:[
+ {dl:"101동 1호 · 106동 4호 · 109동 4호",p:[64700,67600,69800,71300,72000,72700],dongs:{"101":[1],"106":[4],"109":[4]}}]}
+];
+var type=null,dong="",ho="",band=4,balcOn=false,loan=0.5,rate=3.5;
+function won(n){return Math.round(n).toLocaleString("ko-KR")+"원"}
+function manwon(n){var e=Math.round(n),m=Math.floor(e/10000),r=e%10000;return m>0?m+"만 "+r.toLocaleString("ko-KR")+"원":e.toLocaleString("ko-KR")+"원"}
+function T_(){return T.filter(function(t){return t.n===type})[0]}
+function groupOf(){var t=T_();for(var i=0;i<t.g.length;i++)if(t.g[i].dongs[dong]&&t.g[i].dongs[dong].indexOf(ho)>-1)return t.g[i];return null}
+function calc(){
+ var t=T_(),g=groupOf(),b=Math.max(0,Math.min(5,band)),p=g.p[b]*10000;
+ var cg=p*0.05,c1=10000000,c2=cg-c1,mid=p*0.60,bal=p*0.35;
+ var la=loan?p*loan:0,mi=rate?la*rate/100/12:0;
+ return {p:p,cg:cg,c1:c1,c2:c2,mid:mid,bal:bal,la:la,mi:mi,g:g,b:b};
+}
+function bandLabel(b){return b<0?"":BANDS[b]}
+function fillType(){
+ var h="";T.forEach(function(t){h+='<option value="'+t.n+'">'+t.n+" 타입 ("+t.py+"평 · "+t.cnt+"세대)</option>"});
+ document.getElementById("selType").innerHTML=h;
+}
+function fillDong(){
+ var t=T_(),set={},h='<option value="">동 선택</option>';
+ t.g.forEach(function(gr){Object.keys(gr.dongs).forEach(function(dg){set[dg]=1})});
+ Object.keys(set).sort().forEach(function(dg){h+='<option value="'+dg+'">'+dg+"동</option>"});
+ document.getElementById("selDong").innerHTML=h;
+ document.getElementById("selHo").disabled=true;
+ document.getElementById("selHo").innerHTML='<option value="">동을 먼저 선택하세요</option>';
+ dong="";ho="";
+ document.getElementById("typeInfo").textContent="공급 "+t.py+"평(공급면적 "+t.sup+"㎡) · 전용 "+t.ded+"㎡ · 라인: "+t.g.map(function(x){return x.dl}).join(" / ");
+}
+function fillHo(){
+ var t=T_(),h='<option value="">선택 안 함(5~9층 대표가)</option>',rows=[];
+ t.g.forEach(function(gr){
+  if(!gr.dongs[dong])return;
+  gr.dongs[dong].forEach(function(hoN){
+   BANDS.forEach(function(bd,bi){if(gr.p[bi]!=null)rows.push({ho:hoN,bi:bi,l:hoN+"호("+bd+")"})});
+  });
+ });
+ rows.sort(function(a,b){return a.ho-b.ho||a.bi-b.bi});
+ rows.forEach(function(r){h+='<option value="'+r.ho+"|"+r.bi+'">'+r.l+"</option>"});
+ var sh=document.getElementById("selHo");sh.disabled=false;sh.innerHTML=h;
+ ho="";
+}
+function render(){
+ if(!type)return;
+ var t=T_(),c=calc(),cust=document.getElementById("cust")?document.getElementById("cust").value.trim():"";
+ var cond=t.n+" 타입("+t.py+"평)"+(dong?(ho?" · "+dong+"동 "+ho+"호":" · "+dong+"동"):"")+" · "+(ho?BANDS[c.b]:(dong?"5~9층 대표가":"5~9층 기준"));
+ document.getElementById("qCond").textContent=cond;
+ document.getElementById("qPrice").innerHTML=won(c.p).replace(/원/,"<small>원</small>");
+ document.getElementById("qCont").innerHTML=won(c.cg)+"<em>계약 시 1차 "+won(c.c1)+" + 30일 이내 2차 "+won(c.c2)+"</em>";
+ document.getElementById("qBal").innerHTML=won(c.bal)+"<em>입주지정기간</em>";
+ document.getElementById("balcLbl").textContent="확장비 "+won(t.balc);
+ var bs=document.getElementById("balcSum");
+ if(balcOn){bs.style.display="block";bs.innerHTML="<b>발코니 확장 "+won(t.balc)+" 포함 시</b> — 계약 시 "+won(t.balc*0.1)+" + 입주지정기간 "+won(t.balc*0.9)+" · <b>발코니 포함 총액 "+won(c.p+t.balc)+"</b>"}
+ else{bs.style.display="none";bs.innerHTML=""}
+ var ls=document.getElementById("loanSum");
+ if(loan>0){ls.style.display="block";ls.innerHTML="💼 대출 "+Math.round(loan*100)+"% — <b>"+won(c.la)+"</b> / 연 "+rate.toFixed(1)+"% 적용 시 <b>월 이자 약 "+manwon(c.mi)+"</b> (연 약 "+manwon(c.mi*12)+")<br><span style='font-size:10.5px'>(이자만 표시 · 원금 분할상환 조건에 따라 달라짐)</span>"}
+ else{ls.style.display="none"}
+ document.getElementById("loanVal").textContent=Math.round(loan*100)+"%";
+ document.getElementById("loanAmt").textContent="대출금 "+won(c.la);
+ document.getElementById("rateVal").textContent=rate.toFixed(1)+"%";
+ document.getElementById("rateAmt").textContent="월 이자 "+manwon(c.mi);
+ document.getElementById("shMeta").textContent=(cust||"고객님")+" · "+cond+" · 작성일 "+new Date().toLocaleDateString("ko-KR");
+ document.getElementById("shType").textContent=t.n+" ("+t.cnt+"세대) — "+c.g.dl;
+ document.getElementById("shArea").textContent="전용 "+t.ded+"㎡ / 공급 "+t.sup+"㎡ ("+t.py+"평)";
+ document.getElementById("shFloor").textContent=dong?(dong+"동 "+(ho?ho+"호":"호수 미선택")+" · "+(ho?BANDS[c.b]:"5~9층 대표가")):"—";
+ document.getElementById("shPrice").textContent=won(c.p);
+ document.getElementById("shC1").textContent=won(c.c1);
+ document.getElementById("shC2").textContent=won(c.c2);
+ document.getElementById("shBal").textContent=won(c.bal);
+ document.getElementById("shBalc").textContent=balcOn?"포함 — 확장비 "+won(t.balc)+", 총액 "+won(c.p+t.balc):"미포함 — 확장비 "+won(t.balc);
+ document.getElementById("shLoan").textContent=Math.round(loan*100)+"% / 연 "+rate.toFixed(1)+"% — 대출금 "+won(c.la)+", 월 이자 약 "+manwon(c.mi);
+}
+function sheetMsg(){
+ var t=T_(),c=calc(),cust=document.getElementById("cust").value.trim()||"고객님";
+ var cond=t.n+" 타입("+t.py+"평 / 공급 "+t.sup+"㎡)"+(dong?(ho?" / "+dong+"동 "+ho+"호":" / "+dong+"동"):"")+(ho?" / "+BANDS[c.b]:"");
+ var m="【화성 향남 롯데캐슬 시그니처】\n"+cust+"님 견적 안내드립니다.\n\n"+
+ "■ 조건: "+cond+"\n"+
+ "■ 총 분양가: "+won(c.p)+"\n"+
+ (balcOn?"■ 발코니 확장: "+won(t.balc)+" (포함 총액 "+won(c.p+t.balc)+")\n":"■ 발코니 확장(옵션): "+won(t.balc)+"\n")+
+ "■ 대출: "+Math.round(loan*100)+"% = "+won(c.la)+" (연 "+rate.toFixed(1)+"%, 월 이자 약 "+manwon(c.mi)+")\n\n"+
+ "□ 계약금(5%): "+won(c.cg)+"\n  · 1차(계약 시) "+won(c.c1)+"\n  · 2차(계약 후 30일 이내) "+won(c.c2)+"\n"+
+ "□ 중도금(60%): 무이지원 — 회차별 일정은 모집공고 확정 후 안내\n"+
+ "□ 잔금(35%): "+won(c.bal)+" (입주지정기간)\n\n"+
+ "※ 모집공고 확정 시 일부 조건이 변경될 수 있습니다.\n"+
+ "상담 문의: 총괄 본부장 김태은 010-4375-0527";
+ return m;
+}
+function toast(t2){var el=document.getElementById("toast");el.textContent=t2;el.classList.add("on");setTimeout(function(){el.classList.remove("on")},1800)}
+function copyText(m,cb){
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(m).then(cb,function(){fb(m,cb)})}
+ else{fb(m,cb)}
+}
+function fb(m,cb){var ta=document.createElement("textarea");ta.value=m;document.body.appendChild(ta);ta.select();try{document.execCommand("copy")}catch(e){}document.body.removeChild(ta);if(cb)cb()}
+function sendKakao(){var m=sheetMsg();if(navigator.share){navigator.share({text:m}).catch(function(){})}else{copyText(m,function(){toast("견적을 복사했어요 — 카톡에 붙여넣으세요");location.href="kakaotalk://"})}}
+function sendSMS(){location.href="sms:?body="+encodeURIComponent(sheetMsg())}
+function sendMail(){var sub="【화성 향남 롯데캐슬 시그니처】 상세 견적서 — "+(document.getElementById("cust").value.trim()||"고객님");location.href="mailto:?subject="+encodeURIComponent(sub)+"&body="+encodeURIComponent(sheetMsg())}
+document.getElementById("cust");
+/* 입력 마크업 추가 — 고객명 */
+(function(){var s=document.querySelector(".sect .selrow");var d=document.createElement("div");d.className="sect";d.innerHTML='<div class="sect-t"><span class="no">00</span><span class="tt">고객명</span><small>(선택 — 견적서에 표시됩니다)</small></div><input type="text" id="cust" placeholder="예: 홍길동" style="margin-top:2px">';document.querySelector("main").insertBefore(d,document.querySelector("main .sect"))})();
+document.getElementById("selType").addEventListener("change",function(){type=this.value;fillDong();render()});
+document.getElementById("selDong").addEventListener("change",function(){dong=this.value;fillHo();render()});
+document.getElementById("selHo").addEventListener("change",function(){var v=this.value;if(v){var p=v.split("|");ho=p[0];band=+p[1]}else{ho="";band=4}render()});
+document.getElementById("balc").addEventListener("click",function(){balcOn=!balcOn;this.classList.toggle("sel",balcOn);document.getElementById("balcBox").textContent=balcOn?"✓":"";render()});
+document.getElementById("loanBar").addEventListener("input",function(){loan=(+this.value)/100;render()});
+document.getElementById("rateBar").addEventListener("input",function(){rate=+this.value;render()});
+(function(){
+ function hold(btn,fn){var t,i;btn.addEventListener("click",fn);btn.addEventListener("touchstart",function(){t=setTimeout(function(){i=setInterval(fn,120)},400)},{passive:true});["touchend","touchcancel"].forEach(function(ev){btn.addEventListener(ev,function(){clearTimeout(t);clearInterval(i)},{passive:true})})}
+ hold(document.getElementById("loanDn"),function(){var b=document.getElementById("loanBar");b.value=Math.max(10,+b.value-10);loan=(+b.value)/100;render()});
+ hold(document.getElementById("loanUp"),function(){var b=document.getElementById("loanBar");b.value=Math.min(70,+b.value+10);loan=(+b.value)/100;render()});
+ hold(document.getElementById("rateDn"),function(){var b=document.getElementById("rateBar");b.value=Math.max(1,Math.round((+b.value-0.1)*10)/10);rate=+b.value;render()});
+ hold(document.getElementById("rateUp"),function(){var b=document.getElementById("rateBar");b.value=Math.min(6,Math.round((+b.value+0.1)*10)/10);rate=+b.value;render()});
+})();
+document.getElementById("bCopy").addEventListener("click",function(){copyText(sheetMsg(),function(){toast("상세 견적서를 복사했어요")})});
+document.getElementById("bSheet").addEventListener("click",function(){document.getElementById("sheet").scrollIntoView({behavior:"smooth",block:"start"})});
+document.getElementById("bKakao").addEventListener("click",sendKakao);
+document.getElementById("sKakao").addEventListener("click",sendKakao);
+document.getElementById("sSms").addEventListener("click",sendSMS);
+document.getElementById("sMail").addEventListener("click",sendMail);
+fillType();
+type=T[0].n;
+document.getElementById("selType").value=type;
+fillDong();
+render();
+if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
+</script>
+</body>
+</html>
