@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#12141d; --ink2:#1b1e2b; --ink3:#242838;
+  --ink:#0a1c4e; --ink2:#122a66; --ink3:#1a387e;
   --gold:#c8a45c; --gold2:#e6cf9a; --golddim:#8a744a;
   --paper:#f7f4ec; --paper2:#efe9da; --line:#e2dac6;
   --txt:#e8e4d8; --mut:#9a96a8; --good:#7fb08a;
@@ -103,13 +103,14 @@ input[type=range]{flex:1;accent-color:var(--gold);height:40px}
 #toast{position:fixed;left:50%;bottom:34px;transform:translate(-50%,20px);background:#262a3a;color:#efe9d6;font-size:13px;padding:11px 20px;border-radius:999px;border:1px solid #3a3e50;opacity:0;pointer-events:none;transition:.25s;z-index:9}
 #toast.on{opacity:1;transform:translate(-50%,0)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.emblem{display:block;height:62px;margin:0 auto 14px;opacity:.96}
 </style>
 </head>
 <body>
 
 <header class="hero">
   <div class="wrap">
-    <div class="brand">LOTTE CASTLE SIGNATURE</div>
+    <img class="emblem" src="logo-white.png" alt="LOTTE CASTLE"><div class="brand">LOTTE CASTLE SIGNATURE</div>
     <h1>화성 향남 <span class="sig">롯데캐슬 시그니처</span></h1>
     <div class="stroke"></div>
     <div class="sub">향남 최초의 메이저 브랜드 · 전용 84~120㎡ 중·대형 평형</div>
@@ -190,7 +191,7 @@ input[type=range]{flex:1;accent-color:var(--gold);height:40px}
   <!-- 공유 -->
   <div class="btns">
     <button type="button" id="bCopy">복사</button>
-    <button type="button" class="ghost" id="bSheet">상세 견적서</button>
+    <button type="button" class="ghost" id="bSheet"><img src="logo-gold.png" style="height:30px;vertical-align:-9px;margin-right:8px">상세 견적서</button>
     <button type="button" id="bKakao">카톡·문자</button>
   </div>
 
