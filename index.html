@@ -104,6 +104,8 @@ input[type=range]{flex:1;accent-color:var(--gold);height:40px}
 #toast.on{opacity:1;transform:translate(-50%,0)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 .emblem{display:block;height:88px;margin:0 auto 16px;opacity:1;filter:brightness(1.55) drop-shadow(0 2px 10px rgba(230,207,154,.35))}
+#callBtn{display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:13.5px;font-weight:700;color:#1c1a12;background:linear-gradient(100deg,#e6cf9a,#c8a45c);border-radius:10px;padding:12px 14px;margin-top:8px;letter-spacing:-.2px}
+#callBtn:active{filter:brightness(.92)}
 </style>
 </head>
 <body>
@@ -193,6 +195,7 @@ input[type=range]{flex:1;accent-color:var(--gold);height:40px}
     <button type="button" id="bCopy">복사</button>
     <button type="button" class="ghost" id="bSheet"><img src="logo-gold.png" style="height:30px;vertical-align:-9px;margin-right:8px">상세 견적서</button>
     <button type="button" id="bKakao">카톡·문자</button>
+    <a id="callBtn" href="tel:01031440016">📞 담당자 바로 전화</a>
   </div>
 
   <!-- 상세 견적서 -->
@@ -212,6 +215,7 @@ input[type=range]{flex:1;accent-color:var(--gold);height:40px}
         <tr><td class="l">발코니 확장</td><td class="r" id="shBalc">—</td></tr>
         <tr><td class="l">대출 조건</td><td class="r" id="shLoan">—</td></tr>
       </table>
+<div style="text-align:center;padding:8px 12px 12px"><a href="tel:01031440016" style="color:#8a6a2c;font-weight:700;text-decoration:none;font-size:13px">📞 상담 문의 — 담당자 노명수 010-3144-0016</a></div>
       <div class="btns sheet-btns">
         <button type="button" id="sKakao">카톡</button>
         <button type="button" id="sSms">문자</button>
@@ -311,7 +315,9 @@ function fillHo(){
  });
  rows.sort(function(a,b){return a.f-b.f||a.ho-b.ho||(a.t<b.t?-1:1)});
  rows.forEach(function(r){h+='<option value="'+r.t+"|"+r.ho+"|"+r.bi+"|"+r.f+'">'+r.l+"</option>"});
- var sh=document.getElementById("selHo");sh.disabled=false;sh.innerHTML=h;
+ var sh=document.getElementById("selHo");
+ if(!dong||!rows.length){sh.disabled=true;sh.innerHTML='<option value="">'+(dong?"선택 가능한 호실이 없습니다":"동을 먼저 선택하세요")+'</option>';ho="";return}
+ sh.disabled=false;sh.innerHTML=h;
  ho="";
 }
 function render(){
@@ -356,7 +362,7 @@ function sheetMsg(){
  "□ 중도금(60%): 무이지원 — 회차별 일정은 모집공고 확정 후 안내\n"+
  "□ 잔금(35%): "+won(c.bal)+" (입주지정기간)\n\n"+
  "※ 모집공고 확정 시 일부 조건이 변경될 수 있습니다.\n"+
- "상담 문의: 담당자 지정 후 별도 안내";
+ "상담 문의: 노명수 010-3144-0016";
  return m;
 }
 function toast(t2){var el=document.getElementById("toast");el.textContent=t2;el.classList.add("on");setTimeout(function(){el.classList.remove("on")},1800)}
