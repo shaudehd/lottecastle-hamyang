@@ -322,7 +322,8 @@ function sheetMsg(){
  "■ 조건: "+cond+"\n"+
  "■ 총 분양가: "+won(c.p)+"\n"+
  (balcOn?"■ 발코니 확장: "+won(t.balc)+" (포함 총액 "+won(c.p+t.balc)+")\n":"■ 발코니 확장(옵션): "+won(t.balc)+"\n")+
- "■ 대출: "+Math.round(loan*100)+"% = "+won(c.la)+" (연 "+rate.toFixed(1)+"%, 월 이자 약 "+manwon(c.mi)+")\n\n"+
+ "
+"+
  "□ 계약금(5%): "+won(c.cg)+"\n  · 1차(계약 시) "+won(c.c1)+"\n  · 2차(계약 후 30일 이내) "+won(c.c2)+"\n"+
  "□ 중도금(60%): 무이지원 — 회차별 일정은 모집공고 확정 후 안내\n"+
  "□ 잔금(35%): "+won(c.bal)+" (입주지정기간)\n\n"+
