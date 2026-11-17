@@ -281,20 +281,21 @@ function calc(){
  return {p:p,cg:cg,c1:c1,c2:c2,mid:mid,bal:bal,la:la,mi:mi,g:g,b:b};
 }
 function bandLabel(b){return b<0?"":BANDS[b]}
+function dongHasType(dg,tf){tf=tf||type;for(var i=0;i<T.length;i++){if(tf&&T[i].n!==tf)continue;for(var j=0;j<T[i].g.length;j++)if(T[i].g[j].dongs[dg])return true}return false}
 function fillType(){
  var h='<option value="">전체 타입 (동·호로 찾기)</option>';
  T.forEach(function(t){h+='<option value="'+t.n+'">'+t.n+" 타입 ("+t.py+"평 · "+t.cnt+"세대)</option>"});
  document.getElementById("selType").innerHTML=h;
 }
 function fillDong(){
- var set={},h='<option value="">동 선택</option>';
- T.forEach(function(t){t.g.forEach(function(gr){Object.keys(gr.dongs).forEach(function(dg){set[dg]=1})})});
+ var tf=document.getElementById("selType").value,set={},h='<option value="">동 선택</option>';
+ T.forEach(function(t){if(tf&&t.n!==tf)return;t.g.forEach(function(gr){Object.keys(gr.dongs).forEach(function(dg){set[dg]=1})})});
  Object.keys(set).sort().forEach(function(dg){h+='<option value="'+dg+'">'+dg+"동</option>"});
  document.getElementById("selDong").innerHTML=h;
  document.getElementById("selHo").disabled=true;
  document.getElementById("selHo").innerHTML='<option value="">동을 먼저 선택하세요</option>';
  dong="";ho="";
- document.getElementById("typeInfo").textContent="단지 전체 101동~117동 · 동을 고르면 그 동의 전 호실(타입·층 포함)이 나옵니다";
+ document.getElementById("typeInfo").textContent="타입을 고르면 그 타입이 있는 동만 나옵니다 · 동을 고르면 그 동의 전 호실(1층~꼭대기)이 나옵니다";
 }
 function fillHo(){
  var tf=document.getElementById("selType").value,rows=[],h='<option value="">호실 선택</option>';
@@ -370,7 +371,7 @@ function sendMail(){var sub="【화성 향남 롯데캐슬 시그니처】 상�
 document.getElementById("cust");
 /* 입력 마크업 추가 — 고객명 */
 (function(){var s=document.querySelector(".sect .selrow");var d=document.createElement("div");d.className="sect";d.innerHTML='<div class="sect-t"><span class="no">00</span><span class="tt">고객명</span><small>(선택 — 견적서에 표시됩니다)</small></div><input type="text" id="cust" placeholder="예: 홍길동" style="margin-top:2px">';document.querySelector("main").insertBefore(d,document.querySelector("main .sect"))})();
-document.getElementById("selType").addEventListener("change",function(){type=this.value||null;preview=false;if(dong)fillHo();render()});
+document.getElementById("selType").addEventListener("change",function(){type=this.value||null;preview=false;var keep=dong;fillDong();if(keep&&!dongHasType(keep)){dong="";ho=""};document.getElementById("selDong").value=dong;fillHo();render()});
 document.getElementById("selDong").addEventListener("change",function(){dong=this.value;fillHo();render()});
 document.getElementById("selHo").addEventListener("change",function(){var v=this.value;if(v){var p=v.split("|");type=p[0];ho=p[1];band=+p[2];floor=+p[3]||floor;document.getElementById("selType").value=type;preview=false}else{ho="";band=4;floor=7}render()});
 document.getElementById("balc").addEventListener("click",function(){balcOn=!balcOn;this.classList.toggle("sel",balcOn);document.getElementById("balcBox").textContent=balcOn?"✓":"";render()});
