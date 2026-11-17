@@ -188,8 +188,7 @@ input[type=range]{flex:1;accent-color:var(--gold);height:40px}
         <tr><td class="l">중도금 60%</td><td class="r">무이지원<em style="display:block;font-weight:400;font-size:10.5px;color:#8a7a52">회차별 일정 — 모집공고 확정 후 안내</em></td></tr>
         <tr><td class="l">잔금 35%</td><td class="r" id="shBal">—</td></tr>
         <tr><td class="l">발코니 확장</td><td class="r" id="shBalc">—</td></tr>
-        <tr><td class="l">대출 조건</td><td class="r" id="shLoan">—</td></tr>
-      </table>
+              </table>
 <div style="text-align:center;padding:8px 12px 12px"><a href="tel:01031440016" style="color:#8a6a2c;font-weight:700;text-decoration:none;font-size:13px">📞 상담 문의 — 담당자 노명수 010-3144-0016</a></div>
       <div class="btns sheet-btns">
         <button type="button" id="sKakao">카톡</button>
@@ -307,14 +306,7 @@ function render(){
  var bs=document.getElementById("balcSum");
  if(balcOn){bs.style.display="block";bs.innerHTML="<b>발코니 확장 "+won(t.balc)+" 포함 시</b> — 계약 시 "+won(t.balc*0.1)+" + 입주지정기간 "+won(t.balc*0.9)+" · <b>발코니 포함 총액 "+won(c.p+t.balc)+"</b>"}
  else{bs.style.display="none";bs.innerHTML=""}
- var ls=document.getElementById("loanSum");
- if(loan>0){ls.style.display="block";ls.innerHTML="💼 대출 "+Math.round(loan*100)+"% — <b>"+won(c.la)+"</b> / 연 "+rate.toFixed(1)+"% 적용 시 <b>월 이자 약 "+manwon(c.mi)+"</b> (연 약 "+manwon(c.mi*12)+")<br><span style='font-size:10.5px'>(이자만 표시 · 원금 분할상환 조건에 따라 달라짐)</span>"}
- else{ls.style.display="none"}
- document.getElementById("loanVal").textContent=Math.round(loan*100)+"%";
- document.getElementById("loanAmt").textContent="대출금 "+won(c.la);
- document.getElementById("rateVal").textContent=rate.toFixed(1)+"%";
- document.getElementById("rateAmt").textContent="월 이자 "+manwon(c.mi);
- document.getElementById("shMeta").textContent=(cust||"고객님")+" · "+cond+" · 작성일 "+new Date().toLocaleDateString("ko-KR");
+      document.getElementById("shMeta").textContent=(cust||"고객님")+" · "+cond+" · 작성일 "+new Date().toLocaleDateString("ko-KR");
  document.getElementById("shType").textContent=t.n+" ("+t.cnt+"세대) — "+c.g.dl;
  document.getElementById("shArea").textContent="전용 "+t.ded+"㎡ / 공급 "+t.sup+"㎡ ("+t.py+"평)";
  document.getElementById("shFloor").textContent=dong?(dong+"동 "+(ho?ho+"호":"호수 미선택")+" · "+(ho?floor+"층":"7층 대표가")):"—";
@@ -323,8 +315,7 @@ function render(){
  document.getElementById("shC2").textContent=won(c.c2);
  document.getElementById("shBal").textContent=won(c.bal);
  document.getElementById("shBalc").textContent=balcOn?"포함 — 확장비 "+won(t.balc)+", 총액 "+won(c.p+t.balc):"미포함 — 확장비 "+won(t.balc);
- document.getElementById("shLoan").textContent=Math.round(loan*100)+"% / 연 "+rate.toFixed(1)+"% — 대출금 "+won(c.la)+", 월 이자 약 "+manwon(c.mi);
-}
+ }
 function sheetMsg(){
  var t=T_(),c=calc(),cust=document.getElementById("cust").value.trim()||"고객님";
  var cond=t.n+" 타입("+t.py+"평 / 공급 "+t.sup+"㎡)"+(dong?(ho?" / "+dong+"동 "+ho+"호":" / "+dong+"동"):"")+(ho?" / "+floor+"층":"");
