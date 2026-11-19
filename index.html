@@ -352,8 +352,9 @@ function agentInfo(){var a=document.getElementById("agent"),b=document.getElemen
  var an=ag&&ag.n?ag.n:"노명수",at=ag&&ag.t?ag.t:"010-3144-0016";
  var d=document.createElement("div");d.className="sect";
  d.innerHTML='<div class="sect-t"><span class="no">00</span><span class="tt">담당자</span><small>(변경 가능 — 견적서·공유에 표시)</small></div><div style="display:flex;gap:8px;margin-top:2px"><input type="text" id="agent" placeholder="담당자명" value="'+an+'"><input type="tel" id="agentTel" placeholder="010-0000-0000" value="'+at+'"></div>';
- var cs=document.getElementById("cust");while(cs&&cs.className!=="sect")cs=cs.parentNode;
- cs.parentNode.insertBefore(d,cs.nextSibling);
+ var cs=document.getElementById("cust");while(cs&&cs.parentNode&&cs.className!=="sect")cs=cs.parentNode;
+ if(cs&&cs.parentNode)cs.parentNode.insertBefore(d,cs.nextSibling);
+ else{var mn=document.querySelector("main");mn.insertBefore(d,mn.firstChild)}
  function upd(){var g=agentInfo();var a=document.getElementById("shAgent");
   if(a){a.href="tel:"+g.d;a.textContent="📞 상담 문의 — 담당자 "+g.n+" "+g.t}
   try{localStorage.setItem("hamyangAgent",JSON.stringify({n:g.n,t:g.t}))}catch(e){}}
