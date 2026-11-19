@@ -329,7 +329,7 @@ function sheetMsg(){
  "□ 잔금(35%): "+won(c.bal)+" (입주지정기간)\n"+
  "□ 준공시점: 2029년 12월(예정)\n\n"+
  "※ 모집공고 확정 시 일부 조건이 변경될 수 있습니다.\n"+
- "상담 문의: "+agentInfo().n+" "+agentInfo().t;
+ "상담 문의: "+agentLabel(agentInfo());
  return m;
 }
 function toast(t2){var el=document.getElementById("toast");el.textContent=t2;el.classList.add("on");setTimeout(function(){el.classList.remove("on")},1800)}
@@ -345,23 +345,32 @@ function sendMail(){var sub="【화성 향남 롯데캐슬 시그니처】 상�
 document.getElementById("cust");
 /* 입력 마크업 추가 — 고객명 */
 (function(){var s=document.querySelector(".sect .selrow");var d=document.createElement("div");d.className="sect";d.innerHTML='<div class="sect-t"><span class="no">00</span><span class="tt">고객명</span><small>(선택 — 견적서에 표시됩니다)</small></div><input type="text" id="cust" placeholder="예: 홍길동" style="margin-top:2px">';document.querySelector("main").insertBefore(d,document.querySelector("main .sect"))})();
-function agentInfo(){var a=document.getElementById("agent"),b=document.getElementById("agentTel");
- var n=a?a.value.trim():"노명수",t=b?b.value.trim():"010-3144-0016";
- return {n:n||"담당자",t:t||"010-3144-0016",d:(t||"010-3144-0016").replace(/[^0-9]/g,"")}}
+function agentInfo(){var a=document.getElementById("agN"),b=document.getElementById("agT"),p=document.getElementById("agP");
+ var n=a?a.value.trim():"",t=b?b.value.trim():"",pt=p?p.value.trim():"";
+ if(!n)n="노명수";if(!t)t="010-3144-0016";
+ return {p:pt,n:n,t:t,d:t.replace(/[^0-9]/g,"")||"01031440016"}}
+function agentLabel(g){return (g.p?g.p+" · ":"")+g.n+" "+g.t}
 (function(){var ag=null;try{ag=JSON.parse(localStorage.getItem("hamyangAgent")||"null")}catch(e){}
- var an=ag&&ag.n?ag.n:"노명수",at=ag&&ag.t?ag.t:"010-3144-0016";
+ var ap=ag&&ag.p?ag.p:"",an=ag&&ag.n?ag.n:"노명수",at=ag&&ag.t?ag.t:"010-3144-0016";
  var d=document.createElement("div");d.className="sect";
- d.innerHTML='<div class="sect-t"><span class="no">00</span><span class="tt">담당자</span><small>(변경 가능 — 견적서·공유에 표시)</small></div><div style="display:flex;gap:8px;margin-top:2px"><input type="text" id="agent" placeholder="담당자명" value="'+an+'"><input type="tel" id="agentTel" placeholder="010-0000-0000" value="'+at+'"></div>';
+ d.innerHTML='<div class="sect-t"><span class="no">00</span><span class="tt">담당자</span><small>(견적서·공유에 표시)</small></div>'+
+ '<div id="agView" style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:2px"><div id="agDisp" style="font-size:13px;font-weight:700;color:#f5eeda"></div><button type="button" id="agEdit" style="flex:none;background:transparent;color:#e6cf9a;border:1px solid #c8a45c;border-radius:9px;padding:8px 16px;font-weight:800;font-size:12px">변경</button></div>'+
+ '<div id="agForm" style="display:none;margin-top:2px"><input type="text" id="agP" placeholder="직책 (예: 분양팀장) — 없으면 비워도 됩니다" style="margin-bottom:8px"><input type="text" id="agN" placeholder="담당자명" value="'+an+'" style="margin-bottom:8px"><input type="tel" id="agT" placeholder="010-0000-0000" value="'+at+'"><div style="display:flex;gap:8px;margin-top:8px"><button type="button" id="agSave" style="flex:1;background:linear-gradient(135deg,#c8a45c,#a8853f);color:#241a08;border:0;border-radius:10px;padding:10px 0;font-weight:800;font-size:13px">저장</button><button type="button" id="agCancel" style="flex:1;background:transparent;color:#c8a45c;border:1px solid #c8a45c;border-radius:10px;padding:10px 0;font-weight:800;font-size:13px">취소</button></div></div>';
  var cs=document.getElementById("cust");while(cs&&cs.parentNode&&cs.className!=="sect")cs=cs.parentNode;
  if(cs&&cs.parentNode)cs.parentNode.insertBefore(d,cs.nextSibling);
  else{var mn=document.querySelector("main");mn.insertBefore(d,mn.firstChild)}
- function upd(){var g=agentInfo();var a=document.getElementById("shAgent");
-  if(a){a.href="tel:"+g.d;a.textContent="📞 상담 문의 — 담당자 "+g.n+" "+g.t}
-  try{localStorage.setItem("hamyangAgent",JSON.stringify({n:g.n,t:g.t}))}catch(e){}}
- var ai=document.getElementById("agent"),ti=document.getElementById("agentTel");
- if(ai)ai.addEventListener("input",upd);
- if(ti)ti.addEventListener("input",upd);
- upd();})();
+ document.getElementById("agP").value=ap;
+ function view(){var g=agentInfo();document.getElementById("agDisp").textContent=(g.p?g.p+" · ":"")+g.n+"  "+g.t;
+  var a=document.getElementById("shAgent");if(a){a.href="tel:"+g.d;a.textContent="📞 상담 문의 — "+agentLabel(g)}}
+ document.getElementById("agEdit").addEventListener("click",function(){document.getElementById("agView").style.display="none";document.getElementById("agForm").style.display="block"});
+ document.getElementById("agCancel").addEventListener("click",function(){var g2=ag||{p:"",n:"노명수",t:"010-3144-0016"};document.getElementById("agP").value=g2.p||"";document.getElementById("agN").value=g2.n||"노명수";document.getElementById("agT").value=g2.t||"010-3144-0016";document.getElementById("agView").style.display="flex";document.getElementById("agForm").style.display="none"});
+ document.getElementById("agSave").addEventListener("click",function(){
+  var n=document.getElementById("agN").value.trim(),t=document.getElementById("agT").value.trim(),p=document.getElementById("agP").value.trim();
+  if(!n){toast("담당자명을 입력하세요");return}
+  var dg=t.replace(/[^0-9]/g,"");if(dg.length<9||dg.length>12){toast("전화번호를 확인하세요");return}
+  ag={p:p,n:n,t:t};try{localStorage.setItem("hamyangAgent",JSON.stringify(ag))}catch(e){}
+  view();document.getElementById("agView").style.display="flex";document.getElementById("agForm").style.display="none";toast("저장했어요")});
+ view();})();
 document.getElementById("selType").addEventListener("change",function(){type=this.value||null;preview=false;var keep=dong;fillDong();if(keep&&!dongHasType(keep)){dong="";ho=""};document.getElementById("selDong").value=dong;fillHo();render()});
 document.getElementById("selDong").addEventListener("change",function(){dong=this.value;fillHo();render()});
 document.getElementById("selHo").addEventListener("change",function(){var v=this.value;if(v){var p=v.split("|");type=p[0];ho=p[1];band=+p[2];floor=+p[3]||floor;document.getElementById("selType").value=type;preview=false}else{ho="";band=4;floor=7}render()});
