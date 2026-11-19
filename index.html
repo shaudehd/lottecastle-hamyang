@@ -180,6 +180,7 @@ input[type=range]{flex:1;accent-color:var(--gold);height:40px}
         <tr><td class="l">고객 / 조건</td><td class="r" id="shMeta">—</td></tr>
         <tr><td class="l">주택형</td><td class="r" id="shType">—</td></tr>
         <tr><td class="l">면적 (전용/공급)</td><td class="r" id="shArea">—</td></tr>
+        <tr><td class="l">준공시점</td><td class="r">2029년 12월 (예정)</td></tr>
         <tr><td class="l">동·호 / 층</td><td class="r" id="shFloor">—</td></tr>
         <tr><td class="l">분양가</td><td class="r" id="shPrice">—</td></tr>
         <tr><td class="l">계약금 1차 (계약 시)</td><td class="r" id="shC1">—</td></tr>
@@ -188,7 +189,7 @@ input[type=range]{flex:1;accent-color:var(--gold);height:40px}
         <tr><td class="l">잔금 35%</td><td class="r" id="shBal">—</td></tr>
         <tr><td class="l">발코니 확장</td><td class="r" id="shBalc">—</td></tr>
               </table>
-<div style="text-align:center;padding:8px 12px 12px"><a href="tel:01031440016" style="color:#8a6a2c;font-weight:700;text-decoration:none;font-size:13px">📞 상담 문의 — 담당자 노명수 010-3144-0016</a></div>
+<div style="text-align:center;padding:8px 12px 12px"><a href="tel:01031440016" id="shAgent" style="color:#8a6a2c;font-weight:700;text-decoration:none;font-size:13px">📞 상담 문의 — 담당자 노명수 010-3144-0016</a></div>
       <div class="btns sheet-btns">
         <button type="button" id="sKakao">카톡</button>
         <button type="button" id="sSms">문자</button>
@@ -316,7 +317,7 @@ function render(){
  document.getElementById("shBalc").textContent=balcOn?"포함 — 확장비 "+won(t.balc)+", 총액 "+won(c.p+t.balc):"미포함 — 확장비 "+won(t.balc);
  }
 function sheetMsg(){
- var t=T_(),c=calc(),cust=document.getElementById("cust").value.trim()||"고객님";
+ var t=T_(),c=calc(),cust=document.getElementById("cust").value.trim();
  var cond=t.n+" 타입("+t.py+"평 / 공급 "+t.sup+"㎡)"+(dong?(ho?" / "+dong+"동 "+ho+"호":" / "+dong+"동"):"")+(ho?" / "+floor+"층":"");
  var who=cust?cust+"님":"고객님";var m="【화성 향남 롯데캐슬 시그니처】\n"+who+" 견적 안내드립니다.\n\n"+
  "■ 조건: "+cond+"\n"+
@@ -325,9 +326,10 @@ function sheetMsg(){
  "\n"+
  "□ 계약금(5%): "+won(c.cg)+"\n  · 1차(계약 시) "+won(c.c1)+"\n  · 2차(계약 후 30일 이내) "+won(c.c2)+"\n"+
  "□ 중도금(60%): 무이지원 — 회차별 일정은 모집공고 확정 후 안내\n"+
- "□ 잔금(35%): "+won(c.bal)+" (입주지정기간)\n\n"+
+ "□ 잔금(35%): "+won(c.bal)+" (입주지정기간)\n"+
+ "□ 준공시점: 2029년 12월(예정)\n\n"+
  "※ 모집공고 확정 시 일부 조건이 변경될 수 있습니다.\n"+
- "상담 문의: 노명수 010-3144-0016";
+ "상담 문의: "+agentInfo().n+" "+agentInfo().t;
  return m;
 }
 function toast(t2){var el=document.getElementById("toast");el.textContent=t2;el.classList.add("on");setTimeout(function(){el.classList.remove("on")},1800)}
@@ -343,6 +345,22 @@ function sendMail(){var sub="【화성 향남 롯데캐슬 시그니처】 상�
 document.getElementById("cust");
 /* 입력 마크업 추가 — 고객명 */
 (function(){var s=document.querySelector(".sect .selrow");var d=document.createElement("div");d.className="sect";d.innerHTML='<div class="sect-t"><span class="no">00</span><span class="tt">고객명</span><small>(선택 — 견적서에 표시됩니다)</small></div><input type="text" id="cust" placeholder="예: 홍길동" style="margin-top:2px">';document.querySelector("main").insertBefore(d,document.querySelector("main .sect"))})();
+function agentInfo(){var a=document.getElementById("agent"),b=document.getElementById("agentTel");
+ var n=a?a.value.trim():"노명수",t=b?b.value.trim():"010-3144-0016";
+ return {n:n||"담당자",t:t||"010-3144-0016",d:(t||"010-3144-0016").replace(/[^0-9]/g,"")}}
+(function(){var ag=null;try{ag=JSON.parse(localStorage.getItem("hamyangAgent")||"null")}catch(e){}
+ var an=ag&&ag.n?ag.n:"노명수",at=ag&&ag.t?ag.t:"010-3144-0016";
+ var d=document.createElement("div");d.className="sect";
+ d.innerHTML='<div class="sect-t"><span class="no">00</span><span class="tt">담당자</span><small>(변경 가능 — 견적서·공유에 표시)</small></div><div style="display:flex;gap:8px;margin-top:2px"><input type="text" id="agent" placeholder="담당자명" value="'+an+'"><input type="tel" id="agentTel" placeholder="010-0000-0000" value="'+at+'"></div>';
+ var cs=document.getElementById("cust");while(cs&&cs.className!=="sect")cs=cs.parentNode;
+ cs.parentNode.insertBefore(d,cs.nextSibling);
+ function upd(){var g=agentInfo();var a=document.getElementById("shAgent");
+  if(a){a.href="tel:"+g.d;a.textContent="📞 상담 문의 — 담당자 "+g.n+" "+g.t}
+  try{localStorage.setItem("hamyangAgent",JSON.stringify({n:g.n,t:g.t}))}catch(e){}}
+ var ai=document.getElementById("agent"),ti=document.getElementById("agentTel");
+ if(ai)ai.addEventListener("input",upd);
+ if(ti)ti.addEventListener("input",upd);
+ upd();})();
 document.getElementById("selType").addEventListener("change",function(){type=this.value||null;preview=false;var keep=dong;fillDong();if(keep&&!dongHasType(keep)){dong="";ho=""};document.getElementById("selDong").value=dong;fillHo();render()});
 document.getElementById("selDong").addEventListener("change",function(){dong=this.value;fillHo();render()});
 document.getElementById("selHo").addEventListener("change",function(){var v=this.value;if(v){var p=v.split("|");type=p[0];ho=p[1];band=+p[2];floor=+p[3]||floor;document.getElementById("selType").value=type;preview=false}else{ho="";band=4;floor=7}render()});
